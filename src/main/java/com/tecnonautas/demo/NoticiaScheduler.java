@@ -15,28 +15,24 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
-
 @Component
 public class NoticiaScheduler {
 
-private final NoticiaRepository repository;
+    private final NoticiaRepository repository;
 
-  private final List<FeedSource> feeds = List.of(
+    private final List<FeedSource> feeds = List.of(
         new FeedSource(
             "https://www.inovacaotecnologica.com.br/boletim/rss.xml",
             "Inovação Tecnológica"
         )
-        // próximos feeds entram aqui
     );
 
-public NoticiaScheduler(NoticiaRepository repository) {
-    this.repository = repository;
-}
+    public NoticiaScheduler(NoticiaRepository repository) {
+        this.repository = repository;
+    }
 
-@Scheduled(cron = "0 0 6,12,18,23 * * *")
-
- public void atualizarNoticias() {
-
+    @Scheduled(cron = "0 0 6,12,18,23 * * *")
+    public void atualizarNoticias() {
         System.out.println("Iniciando ciclo de atualização de notícias");
 
         for (FeedSource feed : feeds) {
@@ -44,10 +40,10 @@ public NoticiaScheduler(NoticiaRepository repository) {
         }
 
         System.out.println("Ciclo de atualização finalizado");
-}
+    }
 
-public void processarFeed(FeedSource feedSource) {
-    try {
+    public void processarFeed(FeedSource feedSource) {
+        try {
             URL feedUrl = new URL(feedSource.getUrl());
             System.out.println("Processando feed: " + feedSource.getFonte());
 
@@ -55,7 +51,6 @@ public void processarFeed(FeedSource feedSource) {
 
             for (SyndEntry entry : feed.getEntries()) {
 
-                // Evita duplicidade
                 if (repository.findByLink(entry.getLink()).isEmpty()) {
 
                     Noticia noticia = new Noticia();
@@ -63,29 +58,33 @@ public void processarFeed(FeedSource feedSource) {
                     noticia.setLink(entry.getLink());
                     noticia.setFonte(feedSource.getFonte());
 
-                    // Data de publicação da notícia, se disponível
                     if (entry.getPublishedDate() != null) {
                         noticia.setDataPublicacao(
                             entry.getPublishedDate()
-                                 .toInstant()
-                                 .atZone(ZoneId.of("UTC"))
-                                 .toLocalDateTime()
+                                .toInstant()
+                                .atZone(ZoneId.of("UTC"))
+                                .toLocalDateTime()
                         );
                     } else {
-                        noticia.setDataPublicacao(LocalDateTime.now(ZoneId.of("UTC")));
+                        noticia.setDataPublicacao(
+                            LocalDateTime.now(ZoneId.of("UTC"))
+                        );
                     }
 
-                    noticia.setKeywords(List.of(
-                    "ia",
-                    "machine learning",
-                    "artificial intelligence"
-                    ));
+                    noticia.setKeywords(
+                        List.of("ia", "machine learning", "artificial intelligence")
+                    );
 
-                    noticia.setCreatedAt(LocalDateTime.now(ZoneId.of("UTC")));
+                    noticia.setCreatedAt(
+                        LocalDateTime.now(ZoneId.of("UTC"))
+                    );
+
                     repository.save(noticia);
                 }
             }
+
             System.out.println("Notícias atualizadas com sucesso!");
+
         } catch (FeedException | IOException | IllegalArgumentException e) {
             System.err.println(
                 "Erro ao processar feed " + feedSource.getFonte() + ": " + e.getMessage()
