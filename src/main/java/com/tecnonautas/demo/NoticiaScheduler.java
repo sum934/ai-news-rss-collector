@@ -24,6 +24,10 @@ public class NoticiaScheduler {
         new FeedSource(
             "https://www.inovacaotecnologica.com.br/boletim/rss.xml",
             "Inovação Tecnológica"
+        ),
+        new FeedSource(
+            "https://techcrunch.com/feed/",
+            "TechCrunch"
         )
     );
 
