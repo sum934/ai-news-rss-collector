@@ -37,3 +37,8 @@ build/
 application-prod.yml
 application-local.yml
 application-railway.yml
+
+.env
+*.env
+application-local.properties
+

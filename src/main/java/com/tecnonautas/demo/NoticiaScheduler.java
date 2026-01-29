@@ -28,6 +28,18 @@ public class NoticiaScheduler {
         new FeedSource(
             "https://techcrunch.com/feed/",
             "TechCrunch"
+        ),
+        new FeedSource(
+            "https://www.wired.com/feed/rss",
+            "Wired"
+        ),
+        new FeedSource(
+            "https://www.theverge.com/rss/partner/subscriber-only-full-feed/rss.xml",
+            "The Verge"
+        ),
+        new FeedSource(
+            "https://research.google/blog/rss/",
+            "Google Research Blog"
         )
     );
 

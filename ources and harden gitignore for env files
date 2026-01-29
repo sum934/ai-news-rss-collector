@@ -1,0 +1,37 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex a2c9c1a..c60a1f7 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -37,3 +37,8 @@[m [mbuild/[m
+ application-prod.yml[m
+ application-local.yml[m
+ application-railway.yml[m
+[32m+[m
+[32m+[m[32m.env[m
+[32m+[m[32m*.env[m
+[32m+[m[32mapplication-local.properties[m
+[41m+[m
+[1mdiff --git a/src/main/java/com/tecnonautas/demo/NoticiaScheduler.java b/src/main/java/com/tecnonautas/demo/NoticiaScheduler.java[m
+[1mindex fe54a46..07e0af5 100644[m
+[1m--- a/src/main/java/com/tecnonautas/demo/NoticiaScheduler.java[m
+[1m+++ b/src/main/java/com/tecnonautas/demo/NoticiaScheduler.java[m
+[36m@@ -28,6 +28,18 @@[m [mpublic class NoticiaScheduler {[m
+         new FeedSource([m
+             "https://techcrunch.com/feed/",[m
+             "TechCrunch"[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        new FeedSource([m
+[32m+[m[32m            "https://www.wired.com/feed/rss",[m
+[32m+[m[32m            "Wired"[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        new FeedSource([m
+[32m+[m[32m            "https://www.theverge.com/rss/partner/subscriber-only-full-feed/rss.xml",[m
+[32m+[m[32m            "The Verge"[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        new FeedSource([m
+[32m+[m[32m            "https://research.google/blog/rss/",[m
+[32m+[m[32m            "Google Research Blog"[m
+         )[m
+     );[m
+ [m
